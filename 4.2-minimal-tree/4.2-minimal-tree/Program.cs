@@ -41,5 +41,6 @@ namespace _4._2_minimal_tree
             return node;
         }
 
+        static void Main(string[] args) { }
     }
 }
