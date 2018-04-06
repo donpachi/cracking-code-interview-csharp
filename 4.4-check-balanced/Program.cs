@@ -39,11 +39,14 @@ namespace _4._4_check_balanced
             //base case
             if (node == null) return -1;
             int? left = CheckBalance(node.left);
-            if (left == null) return null;
+            if (left == null) return null;  //check for this immediately so we don't recurse on the same nodes repeatedly
             int? right = CheckBalance(node.right);
             if (right == null) return null;
             int diff = Math.Abs(left.Value - right.Value);
-            return (diff > 1) ? null : Math.Max(left.Value, right.Value);
+            if (diff > 1) 
+                return null;    //null will be our error value to propagate upwards
+            else 
+                return Math.Max(left.Value, right.Value) + 1;
         }
 
         static void Main(string[] args)
