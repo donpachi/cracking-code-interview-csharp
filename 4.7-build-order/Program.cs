@@ -23,28 +23,53 @@ namespace _4._7_build_order
         -input is given to us via string, so lets parse the string and build a graph (cant expect created graph to be given to us)  */
     class Program
     {
+        public Graph BuildGraph(string[] projects, string[,] dependencies){
+            
+        }
+        public Project[] GetBuildOrder(string[] projects, string[,] dependencies){
+            Graph g = BuildGraph(projects, dependencies);
+            return GetBuildOrder(g);
+        }
+
+        Project[] GetBuildOrder(Graph graph){
+            
+        }
+
         static void Main(string[] args)
         {
         }
     }
 
-    class Projects{
-        class Project{
-            IList<Project> dependencies = new List<Project>();
-            Dictionary<string, Project> projectMap = new Dictionary<string, Project>();
-            public string Name{get; set;}
-            int numDependencies = 0;
-            public Project(string name){
-                Name = name;
+    class Graph{
+        public IList<Project> Nodes = new List<Project>();
+        public Dictionary<string, Project> NodeMap = new Dictionary<string, Project>();
+        public void AddNode(Project node){
+            if(!NodeMap.ContainsKey(node.Name)){
+                Nodes.Add(node);
+                NodeMap.Add(node.Name, node);
             }
+        }
 
-            public void AddDependency(Project project){
-                //note here that I could use a hashset (and get rid of the list and dictionary) if i created my own GetHashCode implementation
-                if(!projectMap.ContainsKey(project.Name)){
-                    dependencies.Add(project);
-                    projectMap.Add(project.Name, project);
-                    numDependencies++;
-                }
+        public void AddEdge(){
+
+        }
+    }
+
+    class Project{
+        IList<Project> dependencies = new List<Project>();
+        Dictionary<string, Project> projectMap = new Dictionary<string, Project>();
+        public string Name{get; set;}
+        int numDependencies = 0;
+        public Project(string name){
+            Name = name;
+        }
+
+        public void AddDependency(Project project){
+            //note here that I could use a hashset (and get rid of the list and dictionary) if i created my own GetHashCode implementation
+            if(!projectMap.ContainsKey(project.Name)){
+                dependencies.Add(project);
+                projectMap.Add(project.Name, project);
+                numDependencies++;
             }
         }
     }
