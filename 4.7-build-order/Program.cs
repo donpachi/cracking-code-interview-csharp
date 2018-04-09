@@ -24,15 +24,24 @@ namespace _4._7_build_order
     class Program
     {
         public Graph BuildGraph(string[] projects, string[,] dependencies){
-            
+            Graph g = new Graph();
+            foreach(string s in projects){
+                g.AddNode(s);
+            }
+            for(int index = 0; index < dependencies.GetLength(0); index++){
+                g.AddEdge(dependencies[index,0], dependencies[index,1]);
+            }
+            return g;
         }
+
         public Project[] GetBuildOrder(string[] projects, string[,] dependencies){
             Graph g = BuildGraph(projects, dependencies);
             return GetBuildOrder(g);
         }
 
         Project[] GetBuildOrder(Graph graph){
-            
+            IList<Project> buildOrder = new List<Project>(graph.Nodes);
+
         }
 
         static void Main(string[] args)
@@ -50,8 +59,14 @@ namespace _4._7_build_order
             }
         }
 
-        public void AddEdge(){
+        public void AddNode(string projectName){
+            AddNode(new Project(projectName));
+        }
 
+        public void AddEdge(string node, string dependent){
+            if(NodeMap.ContainsKey(dependent) && NodeMap.ContainsKey(node)){
+                NodeMap[dependent].AddDependency(NodeMap[node]);
+            }
         }
     }
 
