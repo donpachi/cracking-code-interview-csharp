@@ -19,12 +19,10 @@ namespace _8._1_triple_step
 
         int CountSteps(int[] memo, int steps){
             if (steps < 0) return 0;    //null case
-            else if (steps == 1) return 1;  //base case
-            else if (steps == 2) return 2;
-            else if (steps == 3) return 3;
+            else if (steps == 0) return 1;  //base case
             else if (memo[steps] > -1) return memo[steps];  //found precompuatation
             else{
-                memo[steps] = CountSteps(memo, steps - 1) + CountSteps(memo, steps - 2) + CountSteps(memo, steps - 3) + 1;  //summate all the ways to get to 1 move before current steps, then add 1
+                memo[steps] = CountSteps(memo, steps - 1) + CountSteps(memo, steps - 2) + CountSteps(memo, steps - 3);
             }
             return memo[steps];
         }
