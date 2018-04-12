@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,7 +16,7 @@ namespace _8._4_power_set
         as we can see, the power set of P{1,2} is the addition 
         of all the subsets contained in P{1,2} with P{1}
         furthermore, we can see that the subsets can actually be 
-        constructed by appending a copy of P{1}, and then adding {2} to our P{1},
+        constructed by appending a copy of P{1}, and then adding {2} to our copied P{1},
         {} + {2} = {2}, {1} + {2} = {1,2}
         results in {}, {1}, {2}, {1,2}
      */
@@ -57,8 +58,8 @@ namespace _8._4_power_set
         static void Main(string[] args)
         {
             Program p = new Program();
-            IEnumerable<IEnumerable<int>> var = p.PowerSet(new int[]{1,2,3});
-            foreach(IEnumerable<int> n in var){
+            IEnumerable<IEnumerable<int>> coll = p.PowerSet(new int[]{1,2,3});
+            foreach(IEnumerable<int> n in coll){
                 foreach(int i in n){
                     Console.Write(i + " ");
                 }
