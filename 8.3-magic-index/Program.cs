@@ -29,6 +29,40 @@ namespace _8._3_magic_index
             else if (midValue < midIndex) return FindMagic(sortedArr, midIndex + 1, right);
             else return FindMagic(sortedArr, left, midIndex - 1);
         }
+
+        /* **FOLLOW UP** What if values are not distinct???  
+        -2,1,1,2,2,3,4 
+        We can't rely on the mid value anymore. However, observe that if
+        A[i] > i, the value of A[i] is the largest/smallest index that a magic number can occur at
+        but we still need to search both sides of the partition. <- Recursion?
+        Let's partition search */
+        int FindMagicNonDistinct(int[] arr){
+            return FindMagicNonDistinct(arr, 0, arr.Length - 1);
+        }
+
+        int FindMagicNonDistinct(int[] arr, int left, int right){
+            //base case
+            if (left > right) return -1;
+            int midIndex = (left + right) / 2;
+            int midValue = arr[midIndex];
+            if (midValue == arr[midIndex]) return midIndex;
+
+            int lIndex = Math.Min(midIndex - 1, midValue);
+            int leftTemp = FindMagicNonDistinct(arr, left, lIndex);
+            if (leftTemp > -1){ //found in the left search, return;
+                return leftTemp;
+            }
+
+            int rIndex = Math.Max(midIndex + 1, midValue);
+            int rightTemp = FindMagicNonDistinct(arr, rIndex, right);
+            return rightTemp;   //this combines the bottom statements
+            // if(rightTemp > -1) {
+            //     return rightTemp;
+            // }
+            //return -1;  // if both left searches and right searches fail to find, no magic index;
+
+        }
+
         static void Main(string[] args)
         {
             int[] rightMagic = new int[]{-5,-4,-3,2,4,9,21,42};
