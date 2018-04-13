@@ -46,17 +46,7 @@ namespace _8._6_towers_of_hanoi
         }
 
         void Hanoi(int n, Stack<int> src, Stack<int> buf, Stack<int> dst){
-            if (n <= 0) return;
-            if(src.Count == 1){
-                dst.Push(src.Pop());
-                return;
-            }
-            if(src.Count == 2){
-                buf.Push(src.Pop());
-                dst.Push(src.Pop());
-                dst.Push(buf.Pop());
-                return;
-            }
+            if(n <= 0) return;
             Hanoi(n-1, src, dst, buf);
             dst.Push(src.Pop());
             Hanoi(n-1, buf, src, dst);
@@ -65,7 +55,7 @@ namespace _8._6_towers_of_hanoi
         static void Main(string[] args)
         {
             Program p = new Program();
-            IEnumerable<int> results = p.Hanoi(3);
+            IEnumerable<int> results = p.Hanoi(4);
             foreach(int n in results){  //should print in order from 1-5
                 Console.WriteLine(n);
             }
