@@ -41,15 +41,18 @@ namespace _8._6_towers_of_hanoi
             Stack<int> buf = new Stack<int>();
             Stack<int> dst = new Stack<int>();
             for(int i = n; i > 0; i--) src.Push(i);
-            Hanoi(n, src, buf, dst);
+            Hanoi(n, src, dst, buf);
             return dst;
         }
 
-        void Hanoi(int n, Stack<int> src, Stack<int> buf, Stack<int> dst){
+        void Hanoi(int n, Stack<int> src, Stack<int> dst, Stack<int> buf){
             if(n <= 0) return;
-            Hanoi(n-1, src, dst, buf);
+            Stack<int> T1 = src;
+            Stack<int> T2 = buf;
+            Stack<int> T3 = dst;
+            Hanoi(n-1, T1, T2, T3);  //move from src to buffer using dst as buffer
             dst.Push(src.Pop());
-            Hanoi(n-1, buf, src, dst);
+            Hanoi(n-1, T2, T3, T1);  //move from buf to dst using src as buffer
         }
 
         static void Main(string[] args)
