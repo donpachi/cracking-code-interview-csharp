@@ -37,22 +37,19 @@ namespace _8._6_towers_of_hanoi
     class Program
     {
         public Stack<int> Hanoi(int n){
-            Stack<int> src = new Stack<int>();
-            Stack<int> buf = new Stack<int>();
-            Stack<int> dst = new Stack<int>();
-            for(int i = n; i > 0; i--) src.Push(i);
-            Hanoi(n, src, dst, buf);
-            return dst;
+            Stack<int> T1 = new Stack<int>();
+            Stack<int> T2 = new Stack<int>();
+            Stack<int> T3 = new Stack<int>();
+            for(int i = n; i > 0; i--) T1.Push(i);
+            Hanoi(n, T1, T3, T2);
+            return T3;
         }
 
         void Hanoi(int n, Stack<int> src, Stack<int> dst, Stack<int> buf){
             if(n <= 0) return;
-            Stack<int> T1 = src;
-            Stack<int> T2 = buf;
-            Stack<int> T3 = dst;
-            Hanoi(n-1, T1, T2, T3);  //move from src to buffer using dst as buffer
+            Hanoi(n-1, src, buf, dst);  //move from src to buffer using dst as buffer
             dst.Push(src.Pop());
-            Hanoi(n-1, T2, T3, T1);  //move from buf to dst using src as buffer
+            Hanoi(n-1, buf, dst, src);  //move from buf to dst using src as buffer
         }
 
         static void Main(string[] args)
